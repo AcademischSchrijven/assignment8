@@ -1,5 +1,8 @@
 \documentclass[12pt, a4paper]{article}
 
+\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
+
 \setlength\parskip{1em}
 \setlength\parindent{0em}
 
@@ -28,7 +31,8 @@ So the problem we need to solve is the following: Given visual input with unique
 \section{Overview over Computer Vision}
 Computer Vision is the field of study that deals with the extraction of high level features from digital visual data. In our case this data is the video stream from the camera, and the features are the positions and directions of the ball and car.
 
-There are many applications for Computer Vision, most of which are concerned with automation of tasks previously done by humans. In our case playing football, though there are of course more practical applications as well. Tesla heavily invests in Computer Vision for its application in self driving vehicle technology.
+There are many applications for Computer Vision, most of which are concerned with automation of tasks previously done by humans. In our case playing football, though there are of course more practical applications as well.
+Tesla heavily invests in Computer Vision for its application in self driving vehicle technology \cite{teslaAutopilot} \cite{teslaCvArticle}.
 
 \section{Overview over OpenCV}
 
@@ -40,6 +44,6 @@ There are many applications for Computer Vision, most of which are concerned wit
 
 \section{Further Reading}
 
-\section{References}
+\printbibliography
 
 \end{document}
