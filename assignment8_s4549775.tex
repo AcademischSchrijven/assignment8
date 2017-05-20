@@ -19,6 +19,11 @@ For a university project I wanted to detect the position of a robot and which wa
 In this article I want to present the approach I took to detect the features I needed; and how this was applied in a robotics project. This article is positioned as an introduction into image detection and does not assume familiarity with the subject. Concepts and terminology are introduced as needed; it serves as a quick overview over image detection and OpenCV in particular.
 
 \section{Problem}
+As input for my robot's decision making algorithm I need the position of the ball, as well as the position of the robot, and the direction it faces. The ball is round, so direction does not really apply to it.
+
+For this purpose I mounted a camera above the playing field facing straight down. The ball is a bright yellow, and on the robot I mounted a bright red arrow, pointing forward.
+
+So the problem we need to solve is the following: Given visual input with unique, and brightly colored objects, how can the positions and directions of the objects be extracted?
 
 \section{Overview over Computer Vision}
 
