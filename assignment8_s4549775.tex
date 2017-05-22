@@ -65,6 +65,40 @@ The images we capture from the camera are pretty noisy, so we apply a median blu
 image_hsv = cv2.medianBlur(image_hsv, 3)
 \end{lstlisting}
 
+I made a generic object finder class, that does the following things:
+\begin{enumerate}
+	\item Make a mask. This is a black and white image of the same dimensions as the input image, in which all pixels falling within a certain color range are white, and the rest is black. It basically maps all pixels to whether or not they are in the color range.
+
+	We use OpenCV's $inRange$ function for this:
+
+	\begin{lstlisting}
+self.mask += cv2.inRange(
+	image_hsv,
+	threshold["lower"],
+	threshold["upper"],
+)
+	\end{lstlisting}
+	\item Find the contours. The contours are the outlines of all the shapes in our mask.
+
+	We use $findContours$:
+
+	\begin{lstlisting}
+self.contours = cv2.findContours(
+	self.mask,
+	cv2.RETR_LIST,
+	cv2.CHAIN_APPROX_SIMPLE,
+)
+	\end{lstlisting}
+	\item Filter out all contours with an area below some threshold:
+
+	\begin{lstlisting}
+self.contours = [
+	c for c in self.contours
+	if cv2.contourArea(c) >= minimum_area
+]
+	\end{lstlisting}
+\end{enumerate}
+
 \subsection{Finding the ball's position}
 
 \subsection{Finding the robot's position and direction}
