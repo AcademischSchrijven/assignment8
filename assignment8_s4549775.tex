@@ -72,7 +72,7 @@ I made a generic object finder class, that does the following things:
 	We use OpenCV's $inRange$ function for this:
 
 	\begin{lstlisting}
-self.mask += cv2.inRange(
+mask = cv2.inRange(
 	image_hsv,
 	threshold["lower"],
 	threshold["upper"],
@@ -83,8 +83,8 @@ self.mask += cv2.inRange(
 	We use $findContours$:
 
 	\begin{lstlisting}
-self.contours = cv2.findContours(
-	self.mask,
+contours = cv2.findContours(
+	mask,
 	cv2.RETR_LIST,
 	cv2.CHAIN_APPROX_SIMPLE,
 )
@@ -92,8 +92,8 @@ self.contours = cv2.findContours(
 	\item Filter out all contours with an area below some threshold:
 
 	\begin{lstlisting}
-self.contours = [
-	c for c in self.contours
+contours = [
+	c for c in contours
 	if cv2.contourArea(c) >= minimum_area
 ]
 	\end{lstlisting}
