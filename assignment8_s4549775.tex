@@ -61,6 +61,10 @@ image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
 The images we capture from the camera are pretty noisy, so we apply a median blur. A bilateral filter is even better because it reduces noise while retaining edges. For out purposes a median blur is sufficient, so we use it because it's performance is better. \cite{openCVImageSmoothing}
 
+\begin{lstlisting}
+image_hsv = cv2.medianBlur(image_hsv, 3)
+\end{lstlisting}
+
 \subsection{Finding the ball's position}
 
 \subsection{Finding the robot's position and direction}
