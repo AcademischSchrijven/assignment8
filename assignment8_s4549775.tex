@@ -66,6 +66,11 @@ The images we capture from the camera are pretty noisy, so we apply a median blu
 \subsection{Finding the robot's position and direction}
 
 \section{Application}
+We use the information we extracted as input for an algorithm that decides on a plan of action, that describes what our robot is supposed to do. This information is sent to an executor, which controls the robot via Bluetooth.
+
+Even though the techniques were basic, and we extracted very limited information from the camera input, this was enough to make an arbitrarily placed robot find an arbitrarily placed ball, as long as they are visible to the camera.
+
+This demonstrates the ease with which Computer Vision can be deployed even by amateurs, with the help of frameworks such as OpenCV.
 
 \section{Conclusion}
 OpenCV is a great tool for Computer Vision, which provides a basis to build sophisticated
