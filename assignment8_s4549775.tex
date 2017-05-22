@@ -2,6 +2,11 @@
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{references.bib}
+\usepackage{listings}
+\lstset{
+	language=Python,
+	breaklines=true,
+}
 
 \setlength\parskip{1em}
 \setlength\parindent{0em}
@@ -47,6 +52,13 @@ The OpenCV API provides facilities for image (pre)processing, persistence, clust
 In addition to that there are some deprecated modules and experimental / contributed functionality. \cite{openCVRefMan}
 
 \section{Solution}
+\subsection{Preprocessing}
+OpenCV reads the image in as BGR (blue, green, red), where a color's hue is split across 3 different channels. We want to filter on the hue, so it is the easiest solution to convert the color to HSV (hue, saturation, value), which packs hoe information into a single channel.
+
+\begin{lstlisting}
+image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+\end{lstlisting}
+
 \subsection{Finding the ball's position}
 
 \subsection{Finding the robot's position and direction}
