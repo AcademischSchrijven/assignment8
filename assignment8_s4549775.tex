@@ -100,6 +100,14 @@ contours = [
 \end{enumerate}
 
 \subsection{Finding the ball's position}
+This is the easy part of our project. To find the ball we just need to find the center of the minimum enclosing circle of the biggest blob of pixels that have the right color. We assume that the general steps described above have been done already.
+
+We can use $contourArea$ and $minEnclosingCircle$:
+
+\begin{lstlisting}
+contour = max(self.contours, key=cv2.contourArea)
+pos, radius = cv2.minEnclosingCircle(contour)
+\end{lstlisting}
 
 \subsection{Finding the robot's position and direction}
 
