@@ -110,6 +110,52 @@ pos, radius = cv2.minEnclosingCircle(contour)
 \end{lstlisting}
 
 \subsection{Finding the robot's position and direction}
+One could use the ball finding technique for the robot too, but that would only tell one it's position. Since we also need the direction it is facing we strapped an arrow to the robot. We look for the center of this arrow, and for the pointy end. With these two points we have our robot vector.
+
+After applying the general steps described above, we take all contours and approximate them using $approxPolyDP$:
+
+\begin{lstlisting}
+contour = cv2.approxPolyDP(contour, 10, closed=True).squeeze()
+\end{lstlisting}
+
+Next we extract all the lines and turn them into vector combinations:
+
+\begin{lstlisting}
+
+def angle_heuristic(
+        desired_angle: float,
+        v1: np.ndarray,
+        v2: np.ndarray,
+        min_angle: int = 10,
+) -> float:
+    min_angle = as_rad(min_angle)
+    inner_angle = angle(v1, v2, True)
+    if inner_angle < min_angle:
+        return np.pi * 2
+    return min(
+        abs(desired_angle - inner_angle),
+        abs(desired_angle - np.pi + inner_angle),
+    )
+
+vectors = [
+    (i, [x2 - x1, y2 - y1])
+    for i, (x1, y1, x2, y2) in enumerate(lines)
+]
+combinations = [
+    (angle_heuristic(arrow_angle, c[0][1], c[1][1]), c)
+    for c in itertools.combinations(vectors, 2)
+]
+\end{lstlisting}
+
+Then we add the best combination we found to our candidates list. After we have done this for all contours, we select the best of all of our candidates, which is a pair of lines representing the best arrow we could find.
+
+The intersection of these two lines is the tip of the arrow, while the end of the shaft is the center of all the points that make up the two lines:
+
+\begin{lstlisting}
+arr_pos = cv2.minEnclosingCircle(
+    np.append(arr_lines[0], arr_lines[1]).reshape((4, 2))
+)[0]
+\end{lstlisting}
 
 \section{Application}
 We use the information we extracted as input for an algorithm that decides on a plan of action, that describes what our robot is supposed to do. This information is sent to an executor, which controls the robot via Bluetooth.
