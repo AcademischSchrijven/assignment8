@@ -53,7 +53,7 @@ In addition to that there are some deprecated modules and experimental / contrib
 
 \section{Solution}
 \subsection{Preprocessing}
-OpenCV reads the image in as BGR (blue, green, red), where a color's hue is split across 3 different channels. We want to filter on the hue, so it is the easiest solution to convert the color to HSV (hue, saturation, value), which packs hoe information into a single channel.
+OpenCV reads the image in as BGR (blue, green, red), where a color's hue is split across 3 different channels. We want to filter on the hue, so it is the easiest solution to convert the color to HSV (hue, saturation, value), which packs hue information into a single channel.
 
 \begin{lstlisting}
 image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
